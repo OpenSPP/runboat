@@ -13,3 +13,4 @@ spec:
                 name: odoo
                 port:
                   number: 8069
+  ingressClassName: nginx
