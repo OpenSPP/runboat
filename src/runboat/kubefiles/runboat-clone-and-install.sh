@@ -19,31 +19,60 @@ curl -sSL https://github.com/${RUNBOAT_GIT_REPO}/tarball/${RUNBOAT_GIT_REF} | ta
 
 cp test-requirements.txt spp-test-requirements.txt
 
+# Remove OpenG2P stubs from openspp-modules
+rm -rf g2p_bank
+rm -rf g2p_bank_rest_api
+rm -rf g2p_encryption
+rm -rf g2p_encryption_keymanager
+rm -rf g2p_encyption_rest_api
+rm -rf g2p_entitlement_cash
+rm -rf g2p_enumerator
+rm -rf g2p_openid_vci
+rm -rf g2p_openid_vci_rest_api
+rm -rf g2p_programs
+rm -rf g2p_registry_base
+rm -rf g2p_registry_documents
+rm -rf g2p_registry_encryption
+rm -rf g2p_registry_group
+rm -rf g2p_registry_individual
+rm -rf g2p_registry_membership
+rm -rf g2p_registry_rest_api
+rm -rf muk_web_appsbar
+rm -rf muk_web_chatter
+rm -rf muk_web_colors
+rm -rf muk_web_dialog
+rm -rf muk_web_theme
+
 # Download git dependencies to tmp folder
 mkdir ~/git_temp
 cd ~/git_temp
-git clone https://github.com/OpenG2P/openg2p-registry.git --depth 1 --branch 17.0-develop
-git clone https://github.com/OpenG2P/openg2p-program.git --depth 1 --branch 17.0-develop
-# git clone https://github.com/OpenSPP/geospatial.git --depth 1 --branch 17.0-mig-base_geoengine
-git clone https://github.com/muk-it/odoo-modules.git --depth 1 --branch 17.0
-git clone https://github.com/OpenG2P/openg2p-security.git --depth 1 --branch 17.0-develop
-git clone https://github.com/OpenG2P/openg2p-vci.git --depth 1 --branch 17.0-develop
-
-rm -rf openg2p-program/*rest_api* openg2p-program/g2p_documents
-rm -rf odoo-modules/muk_web_enterprise_theme
+git clone https://github.com/OpenSPP/openg2p-registry.git --depth 1 --branch 17.0-develop-openspp
+git clone https://github.com/OpenSPP/openg2p-program.git --depth 1 --branch 17.0-develop-openspp
+git clone https://github.com/OpenSPP/mukit-modules.git --depth 1 --branch 17.0
+rm -rf openg2p-registry/*/tests
+rm -rf openg2p-registry/g2p_documents
+rm -rf openg2p-registry/g2p_encryption_keymanager
+rm -rf openg2p-registry/g2p_odk_importer
+rm -rf openg2p-registry/g2p_odk_user_mapping
+rm -rf openg2p-registry/g2p_profile_image
+rm -rf openg2p-registry/g2p_registry_documents
+rm -rf openg2p-registry/g2p_registry_encryption
+rm -rf openg2p-program/*/tests
+rm -rf openg2p-program/g2p_entitlement_voucher
+rm -rf openg2p-program/g2p_odk_importer_program
+rm -rf openg2p-program/g2p_formio
+rm -rf openg2p-program/g2p_notifications_voucher
+rm -rf openg2p-program/g2p_payment_cash
+rm -rf openg2p-program/g2p_payment_g2p_connect
+rm -rf openg2p-program/g2p_program_documents
+rm -rf mukit-modules/muk_web_enterprise_theme
 cp -r openg2p-registry/* ${ADDONS_DIR}/
 cat ${ADDONS_DIR}/test-requirements.txt >> ${ADDONS_DIR}/spp-test-requirements.txt
 cp -r openg2p-program/* ${ADDONS_DIR}/
 cat ${ADDONS_DIR}/test-requirements.txt >> ${ADDONS_DIR}/spp-test-requirements.txt
-cp -r openg2p-security/* ${ADDONS_DIR}/
-cat ${ADDONS_DIR}/test-requirements.txt >> ${ADDONS_DIR}/spp-test-requirements.txt
-cp -r openg2p-vci/* ${ADDONS_DIR}/
-cat ${ADDONS_DIR}/test-requirements.txt >> ${ADDONS_DIR}/spp-test-requirements.txt
-# cp -r geospatial/* ${ADDONS_DIR}/
-# cat ${ADDONS_DIR}/test-requirements.txt >> ${ADDONS_DIR}/spp-test-requirements.txt
 # MUK addons
-cp -r odoo-modules/* ${ADDONS_DIR}/
-echo "git+https://github.com/OpenG2P/openg2p-program@17.0-develop#subdirectory=g2p_programs" >> ${ADDONS_DIR}/spp-test-requirements.txt
+cp -r mukit-modules/* ${ADDONS_DIR}/
+echo "git+https://github.com/OpenSPP/openg2p-program@17.0-develop-openspp#subdirectory=g2p_programs" >> spp-test-requirements.txt
 echo "odoo-test-helper" >> ${ADDONS_DIR}/spp-test-requirements.txt
 
 export EXCLUDE_REGEX="odoo-addon-g2p.*|odoo-addon-muk.*"
@@ -53,9 +82,6 @@ cp spp-test-requirements.txt test-requirements.txt
 
 # Removing spp_pos as it has not been updated to Odoo 17
 rm -rf spp_pos
-# Installing specific Debian packages to be able to pip install pyjq
-apt update
-apt install -y autoconf automake libtool libtool-bin bison flex
 
 # Install.
 INSTALL_METHOD=${INSTALL_METHOD:-oca_install_addons}
