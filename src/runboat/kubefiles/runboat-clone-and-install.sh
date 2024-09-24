@@ -17,6 +17,9 @@ mkdir -p $ADDONS_DIR
 cd $ADDONS_DIR
 curl -sSL https://github.com/${RUNBOAT_GIT_REPO}/tarball/${RUNBOAT_GIT_REF} | tar zxf - --strip-components=1
 
+echo "without_demo = all" >> /etc/odoo.cfg
+cat /etc/odoo.cfg
+
 cp test-requirements.txt spp-test-requirements.txt
 
 # Remove OpenG2P stubs from openspp-modules
@@ -48,7 +51,7 @@ mkdir ~/git_temp
 cd ~/git_temp
 git clone https://github.com/OpenSPP/openg2p-registry.git --depth 1 --branch 17.0-develop-openspp
 git clone https://github.com/OpenSPP/openg2p-program.git --depth 1 --branch 17.0-develop-openspp
-git clone https://github.com/OpenSPP/mukit-modules.git --depth 1 --branch 17.0
+git clone https://github.com/OpenSPP/mukit-modules.git --depth 1 --branch 17.0-openspp
 rm -rf openg2p-registry/*/tests
 rm -rf openg2p-registry/g2p_documents
 rm -rf openg2p-registry/g2p_encryption_keymanager
@@ -63,6 +66,7 @@ rm -rf openg2p-program/g2p_odk_importer_program
 rm -rf openg2p-program/g2p_formio
 rm -rf openg2p-program/g2p_notifications_voucher
 rm -rf openg2p-program/g2p_payment_cash
+rm -rf openg2p-program/g2p_payment_files
 rm -rf openg2p-program/g2p_payment_g2p_connect
 rm -rf openg2p-program/g2p_program_documents
 rm -rf mukit-modules/muk_web_enterprise_theme
@@ -72,7 +76,10 @@ cp -r openg2p-program/* ${ADDONS_DIR}/
 cat ${ADDONS_DIR}/test-requirements.txt >> ${ADDONS_DIR}/spp-test-requirements.txt
 # MUK addons
 cp -r mukit-modules/* ${ADDONS_DIR}/
-echo "git+https://github.com/OpenSPP/openg2p-program@17.0-develop-openspp#subdirectory=g2p_programs" >> spp-test-requirements.txt
+echo "git+https://github.com/OpenSPP/openg2p-program@17.0-develop-openspp#subdirectory=g2p_programs" >> ${ADDONS_DIR}/spp-test-requirements.txt
+# wecho "git+https://github.com/OpenSPP/openg2p-rest-framework@17.0#subdirectory=fastapi" >> ${ADDONS_DIR}/spp-test-requirements.txt
+echo "git+https://github.com/OpenSPP/openg2p-rest-framework@17.0#subdirectory=extendable" >> ${ADDONS_DIR}/spp-test-requirements.txt
+echo "git+https://github.com/OpenSPP/openg2p-rest-framework@17.0#subdirectory=extendable_fastapi" >> ${ADDONS_DIR}/spp-test-requirements.txt
 echo "odoo-test-helper" >> ${ADDONS_DIR}/spp-test-requirements.txt
 
 export EXCLUDE_REGEX="odoo-addon-g2p.*|odoo-addon-muk.*"

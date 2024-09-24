@@ -26,9 +26,10 @@ unbuffer $(which odoo || which openerp-server) \
 
 # Try to install all addons, but do not fail in case of error, to let the build start
 # so users can work with the 'baseonly' database.
-unbuffer $(which odoo || which openerp-server) \
-  --data-dir=/mnt/data/odoo-data-dir \
-  --db-template=template1 \
-  -d ${PGDATABASE} \
-  -i ${ADDONS:-base} \
-  --stop-after-init || dropdb --if-exists ${PGDATABASE} && exit 0
+# unbuffer $(which odoo || which openerp-server) \
+#   --data-dir=/mnt/data/odoo-data-dir \
+#   --db-template=template1 \
+#   -d ${PGDATABASE} \
+#   -i ${ADDONS:-base} \
+#   --stop-after-init || dropdb --if-exists ${PGDATABASE} && exit 0
+#
