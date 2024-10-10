@@ -21,7 +21,7 @@ unbuffer $(which odoo || which openerp-server) \
   --data-dir=/mnt/data/odoo-data-dir \
   --db-template=template1 \
   -d ${PGDATABASE}-baseonly \
-  -i base \
+  -i base,queue_job \
   --stop-after-init
 
 # Try to install all addons, but do not fail in case of error, to let the build start
