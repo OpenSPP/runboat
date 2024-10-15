@@ -16,7 +16,7 @@ dropdb --if-exists ${PGDATABASE}-baseonly
 
 ADDONS=$(manifestoo --select-addons-dir ${ADDONS_DIR} --select-include "${INCLUDE}" --select-exclude "${EXCLUDE}" list --separator=,)
 
-# Create the baseonly database if installation failed.
+# Create the baseonly database with queue support
 unbuffer $(which odoo || which openerp-server) \
   --data-dir=/mnt/data/odoo-data-dir \
   --db-template=template1 \
