@@ -26,7 +26,7 @@ echo "workers = 2" >> ${ODOO_RC}
 echo "server_wide_modules = web,queue_job,base" >> ${ODOO_RC}
 echo "[queue_job]" >> ${ODOO_RC}
 echo "channels = root:2" >> ${ODOO_RC}
-echo "dbname = ${PGDATABASE}-baseonly" >> ${ODOO_RC}
+echo "db_name = ${PGDATABASE}-baseonly" >> ${ODOO_RC}
 cat ${ODOO_RC}
 
 # Install 'deb' external dependencies of all Odoo addons found in path.
