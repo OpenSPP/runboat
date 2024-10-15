@@ -73,7 +73,11 @@ rm -rf mukit-modules/muk_web_enterprise_theme
 cp -r openg2p-registry/* ${ADDONS_DIR}/
 cat ${ADDONS_DIR}/test-requirements.txt >> ${ADDONS_DIR}/spp-test-requirements.txt
 cp -r openg2p-program/* ${ADDONS_DIR}/
-cat ${ADDONS_DIR}/test-requirements.txt >> ${ADDONS_DIR}/spp-test-requirements.txt
+# Do not install test requirements for openg2p-program as they are only references
+# to OpenSPP components from openspp-modules and installing them will overwrite the
+# module versions from the branch curl:ed on line 18.
+# cat ${ADDONS_DIR}/test-requirements.txt >> ${ADDONS_DIR}/spp-test-requirements.txt
+
 # MUK addons
 cp -r mukit-modules/* ${ADDONS_DIR}/
 echo "git+https://github.com/OpenSPP/openg2p-program@17.0-develop-openspp#subdirectory=g2p_programs" >> ${ADDONS_DIR}/spp-test-requirements.txt
