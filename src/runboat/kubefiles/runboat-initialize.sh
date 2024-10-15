@@ -16,12 +16,12 @@ dropdb --if-exists ${PGDATABASE}-baseonly
 
 ADDONS=$(manifestoo --select-addons-dir ${ADDONS_DIR} --select-include "${INCLUDE}" --select-exclude "${EXCLUDE}" list --separator=,)
 
-# Create the baseonly database with queue support, including spp_idqueue
+# Create the baseonly database with queue support
 unbuffer $(which odoo || which openerp-server) \
   --data-dir=/mnt/data/odoo-data-dir \
   --db-template=template1 \
   -d ${PGDATABASE}-baseonly \
-  -i base,queue_job,spp_idqueue \
+  -i base,queue_job \
   --stop-after-init
 
 # Try to install all addons, but do not fail in case of error, to let the build start
