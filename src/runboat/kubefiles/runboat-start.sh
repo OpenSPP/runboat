@@ -21,6 +21,11 @@ echo "admin_passwd=$(python3 -c 'import secrets; print(secrets.token_hex())')" >
 # but $ODOO_RC is not on a persistent volume, so it is lost when we
 # start in another container).
 echo "addons_path=${ADDONS_PATH},${ADDONS_DIR}" >> ${ODOO_RC}
+echo "without_demo = all" >> ${ODOO_RC}
+echo "workers = 2" >> ${ODOO_RC}
+echo "server_wide_modules = web,queue_job,base" >> ${ODOO_RC}
+echo "[queue_job]" >> ${ODOO_RC}
+echo "channels = root:2" >> ${ODOO_RC}
 cat ${ODOO_RC}
 
 # Install 'deb' external dependencies of all Odoo addons found in path.
@@ -38,7 +43,14 @@ oca_wait_for_postgres
 # --db_user is necessary for Odoo <= 10
 unbuffer $(which odoo || which openerp-server) \
   --data-dir=/mnt/data/odoo-data-dir \
-  --db-filter=^${PGDATABASE} \
+  --database=${PGDATABASE}-baseonly \
   --db_user=${PGUSER} \
   --smtp=localhost \
   --smtp-port=1025
+
+# unbuffer $(which odoo || which openerp-server) \
+#   --data-dir=/mnt/data/odoo-data-dir \
+#   --db-filter=^${PGDATABASE} \
+#   --db_user=${PGUSER} \
+#  --smtp=localhost \
+#  --smtp-port=1025

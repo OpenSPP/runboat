@@ -13,4 +13,11 @@ spec:
                 name: odoo
                 port:
                   number: 8069
+          - path: /websocket
+            pathType: Prefix
+            backend:
+              service:
+                name: odoo
+                port:
+                  number: 8072
   ingressClassName: nginx
