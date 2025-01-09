@@ -81,7 +81,7 @@ cp -r openg2p-program/* ${ADDONS_DIR}/
 # MUK addons
 cp -r mukit-modules/* ${ADDONS_DIR}/
 echo "git+https://github.com/OpenSPP/openg2p-program@17.0-develop-openspp#subdirectory=g2p_programs" >> ${ADDONS_DIR}/spp-test-requirements.txt
-# wecho "git+https://github.com/OpenSPP/openg2p-rest-framework@17.0#subdirectory=fastapi" >> ${ADDONS_DIR}/spp-test-requirements.txt
+echo "git+https://github.com/OpenSPP/openg2p-rest-framework@17.0#subdirectory=fastapi" >> ${ADDONS_DIR}/spp-test-requirements.txt
 echo "git+https://github.com/OpenSPP/openg2p-rest-framework@17.0#subdirectory=extendable" >> ${ADDONS_DIR}/spp-test-requirements.txt
 echo "git+https://github.com/OpenSPP/openg2p-rest-framework@17.0#subdirectory=extendable_fastapi" >> ${ADDONS_DIR}/spp-test-requirements.txt
 echo "odoo-test-helper" >> ${ADDONS_DIR}/spp-test-requirements.txt
