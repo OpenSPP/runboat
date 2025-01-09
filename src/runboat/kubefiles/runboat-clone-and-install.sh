@@ -91,9 +91,6 @@ export SKIP_EXT_DEB_DEPENDENCIES="true"
 cd -
 cp spp-test-requirements.txt test-requirements.txt
 
-# Removing spp_pos as it has not been updated to Odoo 17
-rm -rf spp_pos
-
 # Install.
 INSTALL_METHOD=${INSTALL_METHOD:-oca_install_addons}
 if [[ "${INSTALL_METHOD}" == "oca_install_addons" ]] ; then
